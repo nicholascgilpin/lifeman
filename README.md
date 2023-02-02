@@ -1,6 +1,9 @@
 # lifeman
 A tool for prioritizing all the big and small things in life, so that you don't lose focus on what's important. 
 
+## Schedule
+To be implemented in 8 hours on a future free weekend. 
+
 ## Design
 
 ### User Experience
