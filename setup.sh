@@ -5,17 +5,29 @@ set -euo pipefail
 python3 -m venv myproject
 source myproject/bin/activate
 
-# Install FastAPI
-pip install fastapi uvicorn sqlalchemy
+echo ""
+echo "Installing dependencies..."
+if ! which redis-server &> /dev/null; then
+    sudo apt install redis-server
+fi
+pip install fastapi uvicorn sqlalchemy celery redis
 
-# Create a main.py file with FastAPI code
-echo "from fastapi import FastAPI
+echo ""
+echo "Starting Backend..."
+echo "1/3"
+redis-server &
+REDIS_PID=$!
+echo "2/3"
+celery -A tasks worker --loglevel=info &
+CELERY_PID=$!
+echo "3/3"
+uvicorn main:app --reload &
+UVICORN_PID=$!
 
-app = FastAPI()
+echo ""
+echo "Waiting to kill running processes..."
+echo ""
 
-@app.get('/')
-async def root():
-    return {'message': 'Hello World!'}" > main.py
+trap "kill $REDIS_PID $CELERY_PID $UVICORN_PID" EXIT
 
-# Run the server with uvicorn
-uvicorn main:app --reload
+wait
