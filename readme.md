@@ -26,10 +26,10 @@ A basic CRUD app with a few graphs.
 ### Backend
 Sqlite with a job manager.
 
-1. Create a new Python project using virtualenv.
-2. Install and configure FastAPI for handling HTTP requests.
-3. Use SQLAlchemy to connect to a SQLite database.
-4. Use Celery to handle background tasks.
+1. [X] Create a new Python project using virtualenv.
+2. [X] Install and configure FastAPI for handling HTTP requests.
+3. [X] Use SQLAlchemy to connect to a SQLite database.
+4. [X] Use Celery to handle background tasks.
 5. Deploy the backend to a Linux machine using Docker.
 
 ### Priority Levels

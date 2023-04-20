@@ -6,11 +6,15 @@ python3 -m venv myproject
 source myproject/bin/activate
 
 echo ""
-echo "Installing dependencies..."
+echo "Installing run dependencies..."
 if ! which redis-server &> /dev/null; then
     sudo apt install redis-server
 fi
 pip install fastapi uvicorn sqlalchemy celery redis
+
+echo ""
+echo "Installing test dependencies..."
+pip install httpx
 
 echo ""
 echo "Starting Backend..."
